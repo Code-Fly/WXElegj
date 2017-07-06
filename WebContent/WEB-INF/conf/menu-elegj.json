@@ -1,0 +1,14 @@
+{
+    "button": [
+        {
+            "name": "我的电费", 
+            "sub_button": [
+                {
+                    "type": "click", 
+                    "name": "电费查询", 
+                    "key": "DF_CX"
+                }
+            ]
+        }
+    ]
+}
