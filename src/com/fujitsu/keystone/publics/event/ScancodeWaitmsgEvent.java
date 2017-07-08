@@ -72,54 +72,23 @@ public class ScancodeWaitmsgEvent extends Event {
 
         StringBuffer sengMsg = new StringBuffer();
         // 身份查询
-        if (MenuService.QP_SFCX.equals(eventKey)) {
+        if (MenuService.DF_CX.equals(eventKey)) {
 
-            String response = GasHttpClientUtil.gasPost("ccstWeChatBarcodegetBottle.htm", params, CharEncoding.UTF_8,
-                    fromUserName,scanResult);
-            if (SocketFailCode.ERR_CODE_LENGTH == response.length()) {
-                sengMsg.append("系统请求socket出现异常:").append(response);
-            } else {
-                BarcodegetBottleResMsg barMsg = new BarcodegetBottleResMsg();
-                JSONObject object = JSONObject.fromObject(response);
-                if (0 != (int) object.get(WebSocketResFiled.ERROR_CODE)) {
-                    sengMsg.append("系统请求socket出现异常:").append(object.get(WebSocketResFiled.ERROR_CODE));
-                } else {
-                    JsonConfig jsonConfig = new JsonConfig();
-                    jsonConfig.setRootClass(BarcodegetBottleResMsg.class);
-                    Map<String, Class> classMap = new HashMap<String, Class>();
-                    classMap.put("result", BarcodegetBottleResult.class);
-                    jsonConfig.setClassMap(classMap);
-                    barMsg = (BarcodegetBottleResMsg) JSONObject.toBean(object, jsonConfig);
-                    sengMsg.append("气瓶使用证编号:").append(barMsg.getResult().get(0).getSyzbh()).append(Const.LINE_SEPARATOR)
-                            .append("气瓶注册代码:").append(barMsg.getResult().get(0).getZcdm()).append(Const.LINE_SEPARATOR)
-                            //.append("单位自有编号:").append(barMsg.getResult().get(0).getZybh()).append(Const.LINE_SEPARATOR)
-                            .append("气瓶充装单位:").append(barMsg.getResult().get(0).getJianname()).append(Const.LINE_SEPARATOR)
-                            .append("气瓶制造单位代号:").append(messArray[2]).append(Const.LINE_SEPARATOR).append("气瓶品种:")
-                            .append(barMsg.getResult().get(0).getClassName()).append(Const.LINE_SEPARATOR)
-                            .append("气瓶型号:").append(barMsg.getResult().get(0).getTypeName())
-                            .append(Const.LINE_SEPARATOR).append("气瓶编号:").append(barMsg.getResult().get(0).getPid())
-                            .append(Const.LINE_SEPARATOR).append("充装介质:")
-                            .append(barMsg.getResult().get(0).getMediumName()).append(Const.LINE_SEPARATOR)
-                            .append("出厂日期:").append(barMsg.getResult().get(0).getpDate()).append(Const.LINE_SEPARATOR)
-                            .append("上检日期:").append(barMsg.getResult().get(0).getfDate()).append(Const.LINE_SEPARATOR)
-                            .append("检验周期:").append(barMsg.getResult().get(0).getJyzq() + "年")
-                            .append(Const.LINE_SEPARATOR).append("报废年限:").append(barMsg.getResult().get(0).getBf())
-                            .append(Const.LINE_SEPARATOR).append("下检日期:").append(barMsg.getResult().get(0).getXjrq())
-                            .append(Const.LINE_SEPARATOR).append("报废日期:").append(barMsg.getResult().get(0).getBfrq())
-                            .append(Const.LINE_SEPARATOR);
-                    switch (barMsg.getResult().get(0).getStatus()) {
-                        case 0:
-                            sengMsg.append("气瓶当前状态:").append("正常");
-                            break;
-                        case 1:
-                            sengMsg.append("气瓶当前状态:").append("过期");
-                            break;
-                        case 2:
-                            sengMsg.append("气瓶当前状态:").append("报废");
-                            break;
-                    }
-                }
-            }
+        
+                    sengMsg.append("用户名:").append("张俊").append(Const.LINE_SEPARATOR)
+                            .append("用户编号:").append("0177651").append(Const.LINE_SEPARATOR)
+                            .append("身份证号:").append("321196801016212").append(Const.LINE_SEPARATOR)
+                            .append("缴费模式").append("线上微信支付").append(Const.LINE_SEPARATOR)
+                            .append("用能类型:").append("电力").append(Const.LINE_SEPARATOR)
+                            .append("计费期间").append("气瓶编号:").append("2017-07-01").append(Const.LINE_SEPARATOR)
+                            .append("计费周期:").append("次/月").append(Const.LINE_SEPARATOR)
+                            .append("上次抄表示数:").append("321221").append(Const.LINE_SEPARATOR)
+                            .append("本次抄表示数:").append("321301")
+                            .append(Const.LINE_SEPARATOR).append("用能量:").append("80度")
+                            .append(Const.LINE_SEPARATOR).append("单价:").append("3元/度")
+                            .append(Const.LINE_SEPARATOR).append("公摊费用:").append("21元")
+                            .append(Const.LINE_SEPARATOR).append("总费用:").append("240元")
+                            .append(Const.LINE_SEPARATOR).append("账户余额:").append("1314.6元");
 
         } else if (MenuService.QP_GZJL.equals(eventKey)) {
             String response = GasHttpClientUtil.gasPost("ccstWeChatBarcodegetBottleFill.htm", params,
@@ -313,10 +282,6 @@ public class ScancodeWaitmsgEvent extends Event {
                 }
             }
         }
-        sengMsg.append(Const.LINE_SEPARATOR)
-		       .append(Const.WECHART_NAME)
-		       .append(" ")
-		       .append(Const.WECHART_DOMAIN);
         logger.info("setContent:" + sengMsg.toString());
         message.setContent(sengMsg.toString());
         // 将消息对象转换成xml

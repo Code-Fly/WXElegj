@@ -39,7 +39,9 @@ public class MenuService extends BaseService implements IMenuService {
     public static final String FW_RSQP = "FW_RSQP";
     public static final String FW_YQAQ = "FW_YQAQ";
     public static final String FW_ZXTS = "FW_ZXTS";
-
+    
+    
+    public static final String DF_CX = "DF_CX";
     @Resource
     IMessageService messageService;
 
