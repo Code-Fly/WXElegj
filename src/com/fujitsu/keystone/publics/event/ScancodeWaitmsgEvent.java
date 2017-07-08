@@ -73,8 +73,6 @@ public class ScancodeWaitmsgEvent extends Event {
         StringBuffer sengMsg = new StringBuffer();
         // 身份查询
         if (MenuService.DF_CX.equals(eventKey)) {
-
-        
                     sengMsg.append("用户名:").append("张俊").append(Const.LINE_SEPARATOR)
                             .append("用户编号:").append("0177651").append(Const.LINE_SEPARATOR)
                             .append("身份证号:").append("321196801016212").append(Const.LINE_SEPARATOR)
